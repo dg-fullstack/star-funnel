@@ -1,73 +1,125 @@
-# Welcome to your Lovable project
+# Cartpanda Funnel Builder
 
-## Project info
+A drag-and-drop upsell funnel builder created for the Cartpanda Front-end Engineer Practical Test.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Live Demo
 
-## How can I edit this code?
+[View Demo](https://id-preview--6704f845-ac36-435c-b881-e94f754e948a.lovable.app)
 
-There are several ways of editing your application.
+## 📦 Tech Stack
 
-**Use Lovable**
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool & dev server
+- **React Flow** (@xyflow/react) - Node-based canvas
+- **Tailwind CSS** - Utility-first styling
+- **shadcn/ui** - Accessible UI components
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🏗️ Setup
 
-Changes made via Lovable will be committed automatically to this repo.
+```bash
+# Install dependencies
+npm install
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## ✨ Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Core Requirements (MVP)
 
-**Use GitHub Codespaces**
+- ✅ **Infinite Canvas** - Pan around freely, grid background, zoom controls
+- ✅ **Node Types** - Sales Page, Order Page, Upsell, Downsell, Thank You
+- ✅ **Drag from Palette** - Left sidebar with draggable node templates
+- ✅ **Visual Connections** - Connect nodes with animated arrows
+- ✅ **Funnel Rules**:
+  - Thank You pages cannot have outgoing connections
+  - Upsell/Downsell titles auto-increment (Upsell 1, Upsell 2, etc.)
+  - Validation warnings for orphan nodes
+- ✅ **Persistence** - Auto-saves to localStorage
+- ✅ **Export/Import** - JSON export and import functionality
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Bonus Features
 
-## What technologies are used for this project?
+- ✅ **Zoom in/out** - Via controls or scroll wheel
+- ✅ **Snap to grid** - 20px grid alignment
+- ✅ **Mini-map** - Overview panel for navigation
+- ✅ **Node/Edge deletion** - Select and press Delete/Backspace
+- ✅ **Validation panel** - Shows funnel issues (orphan nodes, missing connections)
 
-This project is built with:
+## 📁 Architecture
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+src/
+├── components/
+│   ├── funnel/
+│   │   ├── FunnelCanvas.tsx    # Main canvas with React Flow
+│   │   ├── FunnelNode.tsx      # Custom node component
+│   │   ├── FunnelToolbar.tsx   # Top toolbar with actions
+│   │   └── NodePalette.tsx     # Left sidebar with node types
+│   └── ui/                     # shadcn/ui components
+├── hooks/
+│   └── useFunnelStore.ts       # State management for nodes/edges
+├── types/
+│   └── funnel.ts               # TypeScript types & node configs
+└── pages/
+    └── Index.tsx               # Main entry page
+```
 
-## How can I deploy this project?
+### Key Architecture Decisions
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+1. **Custom Node Component**: Each funnel node is a self-contained component with its own styling based on type (sales, order, upsell, etc.)
 
-## Can I connect a custom domain to my Lovable project?
+2. **Centralized State Hook**: `useFunnelStore` manages all node/edge state, validation, and persistence logic
 
-Yes, you can!
+3. **Type-Safe Configuration**: Node types are defined with full configuration (icons, colors, labels) in a central config object
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+4. **Design System**: All colors use CSS variables for theming consistency
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## ♿ Accessibility
+
+- **Keyboard navigation**: Tab through palette items, use Delete key to remove nodes
+- **ARIA labels**: All interactive elements have proper labels
+- **Focus indicators**: Visible focus rings on all interactive elements
+- **Screen reader support**: Semantic HTML structure with role attributes
+- **Color contrast**: All text meets WCAG AA contrast requirements
+- **Descriptive icons**: Emoji icons include aria-labels
+
+### Known Accessibility Limitations
+
+- React Flow's internal canvas interactions rely primarily on mouse input
+- Complex drag-and-drop operations may require mouse for optimal experience
+- Minimap is primarily a visual aid
+
+## 📄 Dashboard Architecture
+
+See [docs/dashboard-architecture.md](./docs/dashboard-architecture.md) for the written answer to Part 2 of the assessment.
+
+## 🎨 Design Decisions
+
+### Visual Design
+
+- **Professional SaaS aesthetic**: Clean, minimal interface with clear visual hierarchy
+- **Color-coded nodes**: Each node type has a distinct color for quick identification
+- **Smooth animations**: Subtle transitions for drag operations and connections
+
+### UX Decisions
+
+- **Auto-save**: Changes persist automatically to reduce data loss
+- **Inline validation**: Issues shown in toolbar, not blocking modals
+- **Progressive disclosure**: Tips in sidebar, controls appear on hover
+
+### Trade-offs Made
+
+1. **No real-time collaboration**: Kept scope to single-user localStorage
+2. **No undo/redo**: Would add complexity; focused on core functionality
+3. **No node editing**: Titles/buttons are static; would be a natural next step
+4. **Simple validation**: Basic rules checked; more complex funnel validation could be added
+
+## 📝 License
+
+MIT
